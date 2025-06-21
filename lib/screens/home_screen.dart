@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../logic/compute_worker.dart';
 import '../../logic/spawn_worker.dart';
 import '../../logic/bidirectional_worker.dart';
+import '../../logic/gcd_worker.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,6 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
     _showResult(context, 'Bidirectional', result);
   }
 
+  Future<void> _handleGCD(BuildContext context) async {
+    final result = await calculateGCD();
+    final numbers = result['numbers'] as List<int>;
+    final gcd = result['gcd'] as int;
+
+    _showResult(context, 'GCD Calculation',
+        'Random numbers: ${numbers[0]}, ${numbers[1]}, ${numbers[2]}\n\nGreatest Common Divisor: $gcd');
+  }
+
   @override
   void dispose() {
     _messageController.dispose();
@@ -81,6 +91,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ElevatedButton(
                 onPressed: () => _handleBidirectional(context),
                 child: const Text('Executar com comunicação bidirecional'),
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: () => _handleGCD(context),
+                child: const Text('Calcular GCD de 3 números aleatórios'),
               ),
             ],
           ),

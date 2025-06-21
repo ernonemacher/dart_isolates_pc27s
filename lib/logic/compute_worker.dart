@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-String _heavyComputation(String input) {
+String _computation(String input) {
   int sum = 0;
   for (int i = 0; i < 100000000; i++) {
     sum += i % 5;
@@ -9,5 +9,5 @@ String _heavyComputation(String input) {
 }
 
 Future<String> computeHeavyTask(String input) async {
-  return await compute(_heavyComputation, input);
+  return await compute(_computation, input);
 }
